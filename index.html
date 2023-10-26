@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>My Library</title>
+</head>
+<body>
+
+    <header>
+        <div class="wrapper">
+            <div class="header_container">
+                <h1>Library</h1>
+                    <nav>
+                        <button class="add-btn"><img src="./assets/playlist-plus.svg" alt="add" srcset=""></button>
+                    </nav>
+            </div>
+        </div>
+    </header>
+    <div class="wrapper b_container">
+        <h2 class="completed_books">Completed Books:<p class="count">0</p></h2>
+        <div class="books_container"></div>
+    </div>
+    <div class="modal_book">
+        <h2>Add a Book</h2>
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="Title of the book">
+        <label for="title">Author</label>
+        <input type="text" id="author" placeholder="Author of the book">
+        <label for="title">Year of release</label>
+        <input type="text" id="year" placeholder="Year of release">
+        <label for="title">Number of pages</label>
+        <input type="text" id="pages" placeholder="Number of pages of the book">
+        <div class="check_container">
+            <label for="isRead">I already read this book!</label>
+            <input type="checkbox" id="isRead">
+        </div>
+        <button class="addBook-btn" type="submit">Add</button>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
