@@ -19,6 +19,9 @@ const pages = document.querySelector('#pages');
 const count = document.querySelector('.count');
 const container = document.querySelector(".books_container");
 const isRead = document.querySelector("#isRead");
+
+// Function to add a new book.
+
 function addBook(Book) {
     library.push(Book)
 }
@@ -26,14 +29,15 @@ function addBook(Book) {
 
 // Examples of books added by hand.
 
-const book1 = new Book("Gabriel Garcia Marquez", 1967, "Cien años de soledad", 471);
-const book2 = new Book("Frank Kafka", 1915, "La Metamorfosis", 128);
+const book1 = new Book("Gabriel Garcia Marquez", 1967, "Cien años de soledad", 471, false);
+const book2 = new Book("Frank Kafka", 1915, "La Metamorfosis", 128, false);
 addBook(book1);
 addBook(book2);
 
 
-let c =0;
+
 function renderOnScreen(library){
+    let c =0;
     container.innerHTML = "";   
     library.forEach((book,index) => {
         const card = document.createElement('div');
@@ -45,43 +49,44 @@ function renderOnScreen(library){
             <div>Year of release: ${book.yp}</div>
             <div>Pages: <strong>${book.pages}</strong></div>
             <div class="btn-container"> 
-                <button class="del-btn btn-cfg">Delete</button>
-                <button class="read-btn btn-cfg">Read</button>
+            <button class="del-btn btn-cfg">Delete</button>
+            <button class="read-btn btn-cfg">Read</button>
             </div>
         `;
-    //Delete and read functionalities.
-    const readBtn = card.querySelector('.read-btn');
-    const delBtn = card.querySelector('.del-btn');
-
-    if(isRead.checked){
-        card.classList.add("read");
-        verifyRead(card);
-    }else{
-        readBtn.textContent = "Read";
-    }
-
+        
+        //Delete and read functionalities.
+        const readBtn = card.querySelector('.read-btn');
+        const delBtn = card.querySelector('.del-btn');
+        
+        if(book.isRe == true){
+            card.classList.add("read");
+            card.querySelector('.read-btn').textContent = "Completed";
+        }else{
+            card.querySelector('.read-btn').textContent = "Read";
+        }
+        
     function verifyRead(card){
         if(card.classList.contains("read")){
             c++;
-            count.innerHTML = c;
-            readBtn.textContent = "Completed";
+            count.textContent = c;
         }else{
             if(c>0){
                 c--;
             }
-            count.innerHTML = c;
-            readBtn.textContent = "Read";  
+            count.textContent = c;
         }
     }
 
+    verifyRead(card);
     readBtn.addEventListener('click', ()=>{
-        console.log(card);
         if(card.classList.contains("read")){
             card.classList.remove("read");   
-            verifyRead(card);              
+            verifyRead(card); 
+            card.querySelector('.read-btn').textContent = "Read";          
         }else{
             card.classList.add("read");
-            verifyRead(card);            
+            verifyRead(card);  
+            card.querySelector('.read-btn').textContent = "Completed";            
         }
     });
 
@@ -96,7 +101,7 @@ function renderOnScreen(library){
     container.appendChild(card);
     });
 
-
+    
 }
 
 addBtn.addEventListener('click', ()=>{
@@ -110,9 +115,8 @@ addBtn.addEventListener('click', ()=>{
 // Get values from the inputs.
 
 function getBookInfo(){
-    const book = new Book(author.value,year.value,title.value,pages.value, isRead.value);
-    console.log(book);
-    author.value=year.value=title.value=pages.value = "";
+    const book = new Book(author.value,year.value,title.value,pages.value, isRead.checked);
+    author.value=year.value=title.value=pages.value="";
     return book;
 }
 
